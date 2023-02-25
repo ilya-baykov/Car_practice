@@ -1,3 +1,7 @@
+def all_cars_info(cls):
+    return cls.all_cars
+
+
 class Auto:
 
     def __init__(self, car_brand: str, modul_name: str, year_of_manufacture: int, power: int):
@@ -22,20 +26,34 @@ class Auto:
     def power(self):
         return self.__power
 
+    def __str__(self):
+        return f"Информация о машине {self.car_brand} {self.modul_name.replace('_', ' ')} - {[self.car_brand, self.modul_name, f'{self.year_of_manufacture}г', f'{self.power} л.c']}"
+
 
 class BMW(Auto):
-    __all_cars = {}
+    all_cars = {}
 
     def __init__(self, car_brand: str, modul_name: str, year_of_manufacture: int, power: int):
         super().__init__(car_brand, modul_name, year_of_manufacture, power)
-        BMW.__all_cars.setdefault(f"{car_brand}_{modul_name}", []).extend(
+        BMW.all_cars.setdefault(f"{car_brand}_{modul_name}", []).extend(
             [car_brand, modul_name, year_of_manufacture, power])
 
-    def __str__(self):
-        return f" Информация о машине {self.car_brand} {self.modul_name} - {self}"
+
+class Toyota(Auto):
+    all_cars = {}
+
+    def __init__(self, car_brand: str, modul_name: str, year_of_manufacture: int, power: int):
+        super().__init__(car_brand, modul_name, year_of_manufacture, power)
+        Toyota.all_cars.setdefault(f"{car_brand}_{modul_name}", []).extend(
+            [car_brand, modul_name, year_of_manufacture, power])
 
 
-if __name__ == '__main__':
-    bmw_5 = BMW("BMW", "M5", 1999, 230)
-    bmw_x5 = BMW("BMW", "X5", 2001, 320)
-    bmw_x6 = BMW("BMW", "x6", 2005, 330)
+class Mitsubishi(Auto):
+    all_cars = {}
+
+    def __init__(self, car_brand: str, modul_name: str, year_of_manufacture: int, power: int):
+        super().__init__(car_brand, modul_name, year_of_manufacture, power)
+        Mitsubishi.all_cars.setdefault(f"{car_brand}_{modul_name}", []).extend(
+            [car_brand, modul_name, year_of_manufacture, power])
+
+
