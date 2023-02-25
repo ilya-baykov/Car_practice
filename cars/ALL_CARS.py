@@ -14,3 +14,5 @@ mitsubishi_outlander_2021 = Mitsubishi("Mitsubishi", "Outlander", 2021, 184)
 mitsubishi_eclipse_cross_2021 = Mitsubishi("Mitsubishi", "Eclipse Cross", 2021, 150)
 mitsubishi_asx_2020 = Mitsubishi("Mitsubishi", "Asx", 2020, 140)
 mitsubishi_pajero_sport_2021 = Mitsubishi("Mitsubishi", "Pajero_Sport", 2019, 181)
+
+
