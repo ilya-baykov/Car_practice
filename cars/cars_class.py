@@ -4,6 +4,7 @@ def all_cars_info(cls):
 
 class Auto:
     all_brands = {}
+    info = {}
 
     def __init__(self, car_brand: str, modul_name: str, year_of_manufacture: int, power: int):
         self.__car_brand = car_brand
@@ -11,6 +12,7 @@ class Auto:
         self.__year_of_manufacture = year_of_manufacture
         self.__power = power
         Auto.all_brands.setdefault(car_brand, []).append(modul_name)
+        Auto.info.setdefault(car_brand.lower(), []).append(self)
 
     @property
     def car_brand(self):
