@@ -32,7 +32,7 @@ def current_brand_func(requst, current_brand: str):
 
 def current_model_func(requst, current_brand, current_model):
     if model_presence(current_brand, current_model):
-        info = [car for car in Auto.info.get(current_brand.lower()) if memem.modul_name == current_model][0]
+        info = [car for car in Auto.info.get(current_brand.lower()) if car.modul_name == current_model][0]
         total_result_display = f"<p> Модель - {info.car_brand} {info.modul_name}<p>"
         total_result_display += f"<p> Год выпуска - {info.year_of_manufacture}<p>"
         total_result_display += f"<p> Мощность - {info.power} л.с<p>"
