@@ -3,12 +3,14 @@ def all_cars_info(cls):
 
 
 class Auto:
+    all_brands = {}
 
     def __init__(self, car_brand: str, modul_name: str, year_of_manufacture: int, power: int):
         self.__car_brand = car_brand
         self.__module_name = modul_name
         self.__year_of_manufacture = year_of_manufacture
         self.__power = power
+        Auto.all_brands.setdefault(car_brand, []).append(modul_name)
 
     @property
     def car_brand(self):
@@ -55,5 +57,3 @@ class Mitsubishi(Auto):
         super().__init__(car_brand, modul_name, year_of_manufacture, power)
         Mitsubishi.all_cars.setdefault(f"{car_brand}_{modul_name}", []).extend(
             [car_brand, modul_name, year_of_manufacture, power])
-
-

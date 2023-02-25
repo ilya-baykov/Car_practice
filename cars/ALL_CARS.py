@@ -1,4 +1,4 @@
-from cars_class import *
+from cars.cars_class import *
 
 bmw_m3_2017 = BMW("BMW", "M3", 2017, 460)
 bmw_x5_2021 = BMW("BMW", "X5", 2021, 387)
