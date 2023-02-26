@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 from cars.ALL_CARS import *
-from cars.supports_func import *
 
 
 # Create your views here.
@@ -30,7 +29,7 @@ def current_brand_func(requst, current_brand: str):
 
 def current_model_func(requst, current_brand, current_model):
     info = Auto.get_info(current_brand, current_model)
-    total_result_display = f"<p> Модель - {info[0]} {info[1]}<p>"
-    total_result_display += f"<p> Год выпуска - {info[2]}<p>"
-    total_result_display += f"<p> Мощность - {info[3]} л.с<p>"
+    total_result_display = f"<p> Модель - {info.car_brand} {info.modul_name}<p>"
+    total_result_display += f"<p> Год выпуска - {info.year_of_manufacture}<p>"
+    total_result_display += f"<p> Мощность - {info.power} л.с<p>"
     return HttpResponse(f"{total_result_display}")

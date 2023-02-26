@@ -40,12 +40,11 @@ class Auto:
 
     @classmethod
     def get_info(cls, current_brand, current_model):
-        """ Возвращает всю информацию о модели в вид списка:
-        [car.car_brand, car.modul_name, car.year_of_manufacture, car.power]"""
+        """ Возвращает  экземпляр класса конкретного автомобиля со всей информацией"""
         info = Auto.info_about_current_model_in_current_brand(current_brand, current_model)
         if info:
             car = info[0]
-            return car.car_brand, car.modul_name, car.year_of_manufacture, car.power,
+            return car
 
     @property
     def car_brand(self):
