@@ -1,5 +1,4 @@
 from cars.cars_class import *
-# from cars.ALL_CARS import *
 
 
 class Handler(Auto):
@@ -24,13 +23,13 @@ class Handler(Auto):
     @classmethod
     def info_about_current_model_in_current_brand(cls, current_brand, current_model) -> list:
         """Возвращает экземпляр класса с конкретной модели конкретного бренда"""
-        brand = Auto.check_model_in_current_brand(current_brand)
+        brand = Handler.check_model_in_current_brand(current_brand)
         return [car for car in Auto.info.get(brand) if car.modul_name == current_model]
 
     @classmethod
     def get_info(cls, current_brand, current_model):
         """ Возвращает  экземпляр класса конкретного автомобиля со всей информацией"""
-        info = Auto.info_about_current_model_in_current_brand(current_brand, current_model)
+        info = Handler.info_about_current_model_in_current_brand(current_brand, current_model)
         if info:
             car = info[0]
             return car
