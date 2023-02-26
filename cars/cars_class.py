@@ -12,7 +12,40 @@ class Auto:
         self.__year_of_manufacture = year_of_manufacture
         self.__power = power
         Auto.all_brands.setdefault(car_brand, []).append(modul_name)
-        Auto.info.setdefault(car_brand.lower(), []).append(self)
+        Auto.info.setdefault(car_brand, []).append(self)
+
+    @classmethod
+    def check_model_in_current_brand(cls, current_brand: str) -> str:
+        """ Проверяет наличие конкретного бренда"""
+        different_spelling = [current_brand.lower(), current_brand, current_brand.upper()]
+        for spelling in different_spelling:
+            if cls.all_brands.get(spelling):
+                return spelling
+        raise Exception(F"{current_brand} - Такой бренд не найден")
+
+    @classmethod
+    def get_all_models_current_brand(cls, current_brand):
+        """Возвращает  список моделей конкретного бренды в виде списка """
+        spelling_model = cls.check_model_in_current_brand(current_brand)
+        if spelling_model:
+            return [model for model in cls.all_brands.get(spelling_model)]
+        else:
+            raise Exception(f"Что то не так {current_brand} , {cls.all_brands}")
+
+    @classmethod
+    def info_about_current_model_in_current_brand(cls, current_brand, current_model) -> list:
+        """Возвращает экземпляр класса с конкретной модели конкретного бренда"""
+        brand = Auto.check_model_in_current_brand(current_brand)
+        return [car for car in Auto.info.get(brand) if car.modul_name == current_model]
+
+    @classmethod
+    def get_info(cls, current_brand, current_model):
+        """ Возвращает всю информацию о модели в вид списка:
+        [car.car_brand, car.modul_name, car.year_of_manufacture, car.power]"""
+        info = Auto.info_about_current_model_in_current_brand(current_brand, current_model)
+        if info:
+            car = info[0]
+            return car.car_brand, car.modul_name, car.year_of_manufacture, car.power,
 
     @property
     def car_brand(self):
@@ -59,3 +92,12 @@ class Mitsubishi(Auto):
         super().__init__(car_brand, modul_name, year_of_manufacture, power)
         Mitsubishi.all_cars.setdefault(f"{car_brand}_{modul_name}", []).extend(
             [car_brand, modul_name, year_of_manufacture, power])
+
+
+if __name__ == '__main__':
+    test_car_1 = BMW("BMW", "test_car_1", 2017, 460)
+    test_car_2 = BMW("BMW", "test_car_2", 2017, 460)
+    test_car_3 = BMW("BMW", "test_car_3", 2017, 460)
+    print(Auto.get_all_models_current_brand("BMW"))
+    print(Auto.info_about_current_model_in_current_brand("bmw", "test_car_1"))
+    print(Auto.get_info("bmw", "test_car_1"))

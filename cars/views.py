@@ -19,24 +19,18 @@ def catalog(requst):
 
 def current_brand_func(requst, current_brand: str):
     """Отображает на экране все модели конкретного бренда"""
-    if brand_presence(current_brand):
-        all_models_current_brand = [model for model in Auto.all_brands.get(current_brand)]
-        total_result_display = "<ul>"
-        for model in all_models_current_brand:
-            url_link = reverse("current_model_brand_URL", args=(current_brand, model,))
-            total_result_display += f"<li><a href = '{url_link}'>{model}</a></li>"
-        total_result_display += "</ul>"
-        return HttpResponse(F"{total_result_display}")
-    return HttpResponseNotFound(f"Извините , но в нашем катологе отсутсвует такой бренд - {current_brand}")
+    all_models_current_brand = Auto.get_all_models_current_brand(current_brand)
+    total_result_display = "<ul>"
+    for model in all_models_current_brand:
+        url_link = reverse("current_model_brand_URL", args=(current_brand, model,))
+        total_result_display += f"<li><a href = '{url_link}'>{model}</a></li>"
+    total_result_display += "</ul>"
+    return HttpResponse(F"{total_result_display}")
 
 
 def current_model_func(requst, current_brand, current_model):
-    if model_presence(current_brand, current_model):
-        info = [car for car in Auto.info.get(current_brand.lower()) if car.modul_name == current_model][0]
-        total_result_display = f"<p> Модель - {info.car_brand} {info.modul_name}<p>"
-        total_result_display += f"<p> Год выпуска - {info.year_of_manufacture}<p>"
-        total_result_display += f"<p> Мощность - {info.power} л.с<p>"
-        return HttpResponse(f"{total_result_display}")
-
-    return HttpResponseNotFound(
-        f"Извините , но такой модели - {current_model} не представлено в  линейке - {current_brand}")
+    info = Auto.get_info(current_brand, current_model)
+    total_result_display = f"<p> Модель - {info[0]} {info[1]}<p>"
+    total_result_display += f"<p> Год выпуска - {info[2]}<p>"
+    total_result_display += f"<p> Мощность - {info[3]} л.с<p>"
+    return HttpResponse(f"{total_result_display}")
