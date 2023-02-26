@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
-from cars.ALL_CARS import *
 from cars.handler_cls import *
 
 
