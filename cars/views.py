@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 from cars.handler_cls import *
+from django.template.loader import render_to_string
 
 
 # Create your views here.
@@ -39,3 +40,7 @@ def current_model_func(requst, current_brand, current_model):
         return HttpResponse(f"{total_result_display}")
     else:
         return HttpResponseNotFound(f"Мы не смогли найти модель {current_model} в линейке {current_brand}")
+
+
+def html_test(request):
+    return render(request, 'cars/catalog.html')
