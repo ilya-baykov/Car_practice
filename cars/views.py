@@ -31,16 +31,23 @@ def current_brand_func(requst, current_brand: str):
         return HttpResponseNotFound(f"Извините , но мы не нашли такой бренд - {current_brand}")
 
 
+# def current_model_func(requst, current_brand, current_model):
+#     info = Handler.get_info(current_brand, current_model)
+#     if info:
+#         total_result_display = f"<p> Модель - {info.car_brand} {info.modul_name}<p>"
+#         total_result_display += f"<p> Год выпуска - {info.year_of_manufacture}<p>"
+#         total_result_display += f"<p> Мощность - {info.power} л.с<p>"
+#         return HttpResponse(f"{total_result_display}")
+#     else:
+#         return HttpResponseNotFound(f"Мы не смогли найти модель {current_model} в линейке {current_brand}")
 def current_model_func(requst, current_brand, current_model):
     info = Handler.get_info(current_brand, current_model)
-    if info:
-        total_result_display = f"<p> Модель - {info.car_brand} {info.modul_name}<p>"
-        total_result_display += f"<p> Год выпуска - {info.year_of_manufacture}<p>"
-        total_result_display += f"<p> Мощность - {info.power} л.с<p>"
-        return HttpResponse(f"{total_result_display}")
-    else:
-        return HttpResponseNotFound(f"Мы не смогли найти модель {current_model} в линейке {current_brand}")
+    data = {
+        "brand": info.car_brand,
+        "model": info.modul_name,
+        "year_of_manufacture": info.year_of_manufacture,
+        "power": info.power
+    }
+    return render(requst, 'cars/current_model_info.html', context=data)
 
 
-def html_test(request):
-    return render(request, 'cars/catalog.html')
